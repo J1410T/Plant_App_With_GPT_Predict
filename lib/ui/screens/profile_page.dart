@@ -54,16 +54,16 @@ class _ProfilePageState extends State<ProfilePage> {
             children: [
               Container(
                 width: 150,
-                child: const CircleAvatar(
-                  radius: 60,
-                  backgroundImage: ExactAssetImage('assets/images/profile.jpg'),
-                ),
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   border: Border.all(
                     color: Constants.primaryColor.withOpacity(.5),
                     width: 5.0,
                   ),
+                ),
+                child: const CircleAvatar(
+                  radius: 60,
+                  backgroundImage: ExactAssetImage('assets/images/profile.jpg'),
                 ),
               ),
               const SizedBox(height: 10),

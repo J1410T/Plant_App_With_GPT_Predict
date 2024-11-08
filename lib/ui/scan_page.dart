@@ -172,12 +172,16 @@ class _ScanPageState extends State<ScanPage> {
                           height: 100,
                         ),
                         const SizedBox(height: 20),
-                        Text(
-                          'Tap to Scan',
-                          style: TextStyle(
-                            color: Constants.primaryColor.withOpacity(.80),
-                            fontWeight: FontWeight.w500,
-                            fontSize: 20,
+                        ElevatedButton(
+                          onPressed: () {
+                            _pickImage(ImageSource.camera);
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Constants.primaryColor,
+                          ),
+                          child: const Text(
+                            'Tap to Open Camera',
+                            style: TextStyle(color: Colors.white),
                           ),
                         ),
                         const SizedBox(height: 20),
@@ -190,19 +194,7 @@ class _ScanPageState extends State<ScanPage> {
                           ),
                           child: const Text(
                             'Open Gallery',
-                            style: TextStyle(color: Colors.white), // Thay đổi màu text thành trắng
-                          ),
-                        ),
-                        ElevatedButton(
-                          onPressed: () {
-                            _pickImage(ImageSource.camera);
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Constants.primaryColor,
-                          ),
-                          child: const Text(
-                            'Start Camera',
-                            style: TextStyle(color: Colors.white), // Thay đổi màu text thành trắng
+                            style: TextStyle(color: Colors.white),
                           ),
                         ),
                       ],
@@ -239,7 +231,7 @@ class _ScanPageState extends State<ScanPage> {
                             ),
                             child: const Text(
                               'Detect Disease',
-                              style: TextStyle(color: Colors.white), // Thay đổi màu text thành trắng
+                              style: TextStyle(color: Colors.white),
                             ),
                           ),
                           if (diseaseName.isNotEmpty)
@@ -277,7 +269,7 @@ class _ScanPageState extends State<ScanPage> {
                                   ),
                                   child: const Text(
                                     'Show Precautions',
-                                    style: TextStyle(color: Colors.white), // Thay đổi màu text thành trắng
+                                    style: TextStyle(color: Colors.white),
                                   ),
                                 ),
                               ],

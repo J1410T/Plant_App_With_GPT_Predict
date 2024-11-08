@@ -20,11 +20,11 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    _plantsFuture = Plant.fetchPlants(); // Lấy dữ liệu từ API
-    _loadFavorites(); // Tải danh sách yêu thích từ SharedPreferences
+    _plantsFuture = Plant.fetchPlants(); // Take data from API
+    _loadFavorites(); // Load Favorite list from SharedPreferences
   }
 
-  // Tải danh sách ID các cây yêu thích từ SharedPreferences
+  // Load Favorite list ID from SharedPreferences
   Future<void> _loadFavorites() async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
@@ -32,7 +32,7 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  // Chuyển đổi trạng thái yêu thích của một cây và cập nhật SharedPreferences
+  // Change Favorite a plant and update SharedPreferences
   Future<void> _toggleFavorite(String plantId) async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
@@ -88,7 +88,7 @@ class _HomePageState extends State<HomePage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Tìm kiếm
+                // Search
                 Container(
                   padding: const EdgeInsets.only(top: 20),
                   child: Row(
@@ -129,7 +129,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
 
-                // Danh mục cây
+                // Plant in carousel
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 12),
                   height: 50.0,
@@ -163,7 +163,7 @@ class _HomePageState extends State<HomePage> {
                       }),
                 ),
 
-                // Danh sách cây
+                // List plant
                 SizedBox(
                   height: size.height * .3,
                   child: ListView.builder(
@@ -186,6 +186,10 @@ class _HomePageState extends State<HomePage> {
                           child: Container(
                             width: 200,
                             margin: const EdgeInsets.symmetric(horizontal: 10),
+                            decoration: BoxDecoration(
+                              color: Constants.primaryColor.withOpacity(.8),
+                              borderRadius: BorderRadius.circular(20),
+                            ),
                             child: Stack(
                               children: [
                                 // Favorite Icon
@@ -195,6 +199,10 @@ class _HomePageState extends State<HomePage> {
                                   child: Container(
                                     height: 50,
                                     width: 50,
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(50),
+                                    ),
                                     child: IconButton(
                                       onPressed: () async {
                                         await _toggleFavorite(plant.plantId);
@@ -204,10 +212,6 @@ class _HomePageState extends State<HomePage> {
                                         color: Constants.primaryColor,
                                       ),
                                       iconSize: 30,
-                                    ),
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(50),
                                     ),
                                   ),
                                 ),
@@ -291,16 +295,12 @@ class _HomePageState extends State<HomePage> {
                                 ),
                               ],
                             ),
-                            decoration: BoxDecoration(
-                              color: Constants.primaryColor.withOpacity(.8),
-                              borderRadius: BorderRadius.circular(20),
-                            ),
                           ),
                         );
                       }),
                 ),
 
-                // Phần "New Plants"
+                // "New Plants"
                 Container(
                   padding: const EdgeInsets.only(left: 16, bottom: 20, top: 20),
                   child: const Text(
