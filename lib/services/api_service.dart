@@ -68,7 +68,7 @@ class ApiService {
           'messages': [
             {
               'role': 'system',
-              'content': 'You have to give concise and short answers.'
+              'content': 'Provide concise and direct answers only.'
             },
             {
               'role': 'user',
@@ -76,7 +76,7 @@ class ApiService {
                 {
                   'type': 'text',
                   'text':
-                  'GPT, your task is to identify plant health issues with precision. Analyze any image of a plant or leaf I provide and detect all abnormal conditions, whether they are diseases, pests, deficiencies, or decay. Respond strictly with the name of the condition identified and nothing else. If a condition is unrecognizable, reply with \'I don\'t know.\' If you cannot identify a specific disease, provide your best guess for the plant name. If the image is not plant-related, say \'Please pick another image\'.',
+                  'GPT, identify any abnormal conditions in the provided plant or leaf image, including diseases, pests, deficiencies, or decay. Respond with the condition name alone. If unrecognizable, say \'I don\'t know.\' If you can only identify the plant, provide the plant name. If the image is not plant-related, reply with \'Please pick another image\'.',
                 },
                 {
                   'type': 'image_url',
