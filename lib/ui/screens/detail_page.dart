@@ -150,19 +150,39 @@ class _DetailPageState extends State<DetailPage> {
             left: 20,
             right: 20,
             child: Container(
-              width: size.width * .8,
-              height: size.height * .8,
+              width: size.width * 0.8,
+              height: size.height * 0.8,
               padding: const EdgeInsets.all(20),
               child: Stack(
                 children: [
+                  // Image container with styling
                   Positioned(
                     top: 10,
                     left: 0,
-                    child: SizedBox(
-                      height: 350,
-                      child: Image.network(_plant!.imageURL),
+                    child: Container(
+                      width: size.width * 0.6,
+                      height: 290, // Reduced height to avoid overlap
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(15),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.5),
+                            blurRadius: 10,
+                            offset: Offset(0, 5),
+                          ),
+                        ],
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10), // Rounded corners for the image
+                        child: Image.network(
+                          _plant!.imageURL,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
                     ),
                   ),
+                  // Plant features: Size, Humidity, and Temperature
                   Positioned(
                     top: 10,
                     right: 0,

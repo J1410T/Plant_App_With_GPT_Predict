@@ -44,6 +44,18 @@ class _HomePageState extends State<HomePage> {
       prefs.setStringList('favoritePlantIds', _favoritePlantIds);
     });
   }
+  String _removePrefix(String name) {
+    // Remove the prefix "Cây " if it exists
+    String result = name.startsWith("Cây ") ? name.substring(4) : name;
+
+    // Capitalize the first letter of the result
+    if (result.isNotEmpty) {
+      result = result[0].toUpperCase() + result.substring(1).toLowerCase();
+    }
+
+    return result;
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -85,6 +97,10 @@ class _HomePageState extends State<HomePage> {
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 16.0),
                         width: size.width * .9,
+                        decoration: BoxDecoration(
+                          color: Constants.primaryColor.withOpacity(.1),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -107,10 +123,6 @@ class _HomePageState extends State<HomePage> {
                               color: Colors.black54.withOpacity(.6),
                             ),
                           ],
-                        ),
-                        decoration: BoxDecoration(
-                          color: Constants.primaryColor.withOpacity(.1),
-                          borderRadius: BorderRadius.circular(20),
                         ),
                       )
                     ],
@@ -176,6 +188,7 @@ class _HomePageState extends State<HomePage> {
                             margin: const EdgeInsets.symmetric(horizontal: 10),
                             child: Stack(
                               children: [
+                                // Favorite Icon
                                 Positioned(
                                   top: 10,
                                   right: 20,
@@ -198,37 +211,66 @@ class _HomePageState extends State<HomePage> {
                                     ),
                                   ),
                                 ),
+                                // Image with rounded corners and shadow
                                 Positioned(
-                                  left: 50,
-                                  right: 50,
-                                  top: 50,
-                                  bottom: 50,
-                                  child: Image.network(plant.imageURL),
+                                  left: 20,
+                                  right: 20,
+                                  top: 70,
+                                  child: Container(
+                                    height: 120,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(15),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.black.withOpacity(0.15),
+                                          blurRadius: 10,
+                                          offset: Offset(0, 5),
+                                        ),
+                                      ],
+                                    ),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(15),
+                                      child: Image.network(
+                                        plant.imageURL,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                  ),
                                 ),
+                                // Plant Category and Name
                                 Positioned(
                                   bottom: 15,
                                   left: 20,
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      Text(
-                                        plant.category,
-                                        style: const TextStyle(
-                                          color: Colors.white70,
-                                          fontSize: 16,
+                                      // Move category up by adding bottom padding
+                                      Padding(
+                                        padding: const EdgeInsets.only(bottom: 2), // Adjust the vertical position of category
+                                        child: Text(
+                                          _removePrefix(plant.category),
+                                          style: const TextStyle(
+                                            color: Colors.white70,
+                                            fontSize: 16,
+                                          ),
                                         ),
                                       ),
-                                      Text(
-                                        plant.plantName,
-                                        style: const TextStyle(
-                                          color: Colors.white70,
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.bold,
+                                      // Move plant name up by adding bottom padding
+                                      Padding(
+                                        padding: const EdgeInsets.only(bottom: 4), // Adjust the vertical position of plant name
+                                        child: Text(
+                                          _removePrefix(plant.plantName),
+                                          style: const TextStyle(
+                                            color: Colors.white70,
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.bold,
+                                          ),
                                         ),
                                       ),
                                     ],
                                   ),
                                 ),
+                                // Price Tag
                                 Positioned(
                                   bottom: 15,
                                   right: 20,

@@ -15,6 +15,10 @@ class PlantWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    String _removePrefix(String name) {
+      return name.startsWith("Cây ") ? name.substring(4) : name;
+    }
+
 
     return GestureDetector(
       onTap: () {
@@ -60,7 +64,7 @@ class PlantWidget extends StatelessWidget {
                 children: [
                   Text(plantList[index].category),
                   Text(
-                    plantList[index].plantName,
+                    _removePrefix(plantList[index].plantName),
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 18,
@@ -70,6 +74,7 @@ class PlantWidget extends StatelessWidget {
                 ],
               ),
             ),
+
             Container(
               padding: const EdgeInsets.only(right: 10),
               child: Text(
