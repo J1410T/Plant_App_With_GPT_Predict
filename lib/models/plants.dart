@@ -1,179 +1,69 @@
+import 'package:flutter/material.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+
 class Plant {
-  final int plantId;
+  final String plantId;
   final int price;
+  final String category;
+  final String plantName;
+  final String imageURL;
+  final String decription;
   final String size;
   final double rating;
   final int humidity;
   final String temperature;
-  final String category;
-  final String plantName;
-  final String imageURL;
-  bool isFavorated;
-  final String decription;
-  bool isSelected;
 
-  Plant(
-      {required this.plantId,
-        required this.price,
-        required this.category,
-        required this.plantName,
-        required this.size,
-        required this.rating,
-        required this.humidity,
-        required this.temperature,
-        required this.imageURL,
-        required this.isFavorated,
-        required this.decription,
-        required this.isSelected});
+  Plant({
+    required this.plantId,
+    required this.price,
+    required this.category,
+    required this.plantName,
+    required this.imageURL,
+    required this.decription,
+    this.size = 'Unknown',
+    this.rating = 4.0,
+    this.humidity = 50,
+    this.temperature = '20 - 25',
+  });
 
-  //List of Plants data
-  static List<Plant> plantList = [
-    Plant(
-        plantId: 0,
-        price: 22,
-        category: 'Indoor',
-        plantName: 'Sanseviera',
-        size: 'Small',
-        rating: 4.5,
-        humidity: 34,
-        temperature: '23 - 34',
-        imageURL: 'assets/images/plant-one.png',
-        isFavorated: true,
-        decription:
-        'This plant is one of the best plant. It grows in most of the regions in the world and can survive'
-            'even the harshest weather condition.',
-        isSelected: false),
-    Plant(
-        plantId: 1,
-        price: 11,
-        category: 'Outdoor',
-        plantName: 'Philodendron',
-        size: 'Medium',
-        rating: 4.8,
-        humidity: 56,
-        temperature: '19 - 22',
-        imageURL: 'assets/images/plant-two.png',
-        isFavorated: false,
-        decription:
-        'This plant is one of the best plant. It grows in most of the regions in the world and can survive'
-            'even the harshest weather condition.',
-        isSelected: false),
-    Plant(
-        plantId: 2,
-        price: 18,
-        category: 'Indoor',
-        plantName: 'Beach Daisy',
-        size: 'Large',
-        rating: 4.7,
-        humidity: 34,
-        temperature: '22 - 25',
-        imageURL: 'assets/images/plant-three.png',
-        isFavorated: false,
-        decription:
-        'This plant is one of the best plant. It grows in most of the regions in the world and can survive'
-            'even the harshest weather condition.',
-        isSelected: false),
-    Plant(
-        plantId: 3,
-        price: 30,
-        category: 'Outdoor',
-        plantName: 'Big Bluestem',
-        size: 'Small',
-        rating: 4.5,
-        humidity: 35,
-        temperature: '23 - 28',
-        imageURL: 'assets/images/plant-one.png',
-        isFavorated: false,
-        decription:
-        'This plant is one of the best plant. It grows in most of the regions in the world and can survive'
-            'even the harshest weather condition.',
-        isSelected: false),
-    Plant(
-        plantId: 4,
-        price: 24,
-        category: 'Recommended',
-        plantName: 'Big Bluestem',
-        size: 'Large',
-        rating: 4.1,
-        humidity: 66,
-        temperature: '12 - 16',
-        imageURL: 'assets/images/plant-four.png',
-        isFavorated: true,
-        decription:
-        'This plant is one of the best plant. It grows in most of the regions in the world and can survive'
-            'even the harshest weather condition.',
-        isSelected: false),
-    Plant(
-        plantId: 5,
-        price: 24,
-        category: 'Outdoor',
-        plantName: 'Meadow Sage',
-        size: 'Medium',
-        rating: 4.4,
-        humidity: 36,
-        temperature: '15 - 18',
-        imageURL: 'assets/images/plant-five.png',
-        isFavorated: false,
-        decription:
-        'This plant is one of the best plant. It grows in most of the regions in the world and can survive'
-            'even the harshest weather condition.',
-        isSelected: false),
-    Plant(
-        plantId: 6,
-        price: 19,
-        category: 'Garden',
-        plantName: 'Plumbago',
-        size: 'Small',
-        rating: 4.2,
-        humidity: 46,
-        temperature: '23 - 26',
-        imageURL: 'assets/images/plant-six.png',
-        isFavorated: false,
-        decription:
-        'This plant is one of the best plant. It grows in most of the regions in the world and can survive'
-            'even the harshest weather condition.',
-        isSelected: false),
-    Plant(
-        plantId: 7,
-        price: 23,
-        category: 'Garden',
-        plantName: 'Tritonia',
-        size: 'Medium',
-        rating: 4.5,
-        humidity: 34,
-        temperature: '21 - 24',
-        imageURL: 'assets/images/plant-seven.png',
-        isFavorated: false,
-        decription:
-        'This plant is one of the best plant. It grows in most of the regions in the world and can survive'
-            'even the harshest weather condition.',
-        isSelected: false),
-    Plant(
-        plantId: 8,
-        price: 46,
-        category: 'Recommended',
-        plantName: 'Tritonia',
-        size: 'Medium',
-        rating: 4.7,
-        humidity: 46,
-        temperature: '21 - 25',
-        imageURL: 'assets/images/plant-eight.png',
-        isFavorated: false,
-        decription:
-        'This plant is one of the best plant. It grows in most of the regions in the world and can survive'
-            'even the harshest weather condition.',
-        isSelected: false),
-  ];
-
-  //Get the favorated items
-  static List<Plant> getFavoritedPlants(){
-    List<Plant> _travelList = Plant.plantList;
-    return _travelList.where((element) => element.isFavorated == true).toList();
+  // Factory method to create Plant object from JSON
+  factory Plant.fromJson(Map<String, dynamic> json) {
+    return Plant(
+      plantId: json['_id'] ?? '0', // Use the original _id string
+      price: json['price'] ?? 0,
+      category: json['category']['name'] ?? 'Unknown',
+      plantName: json['title'] ?? 'No name',
+      imageURL: json['img'] ?? '',
+      decription: json['description'] ?? 'No description available',
+    );
   }
 
-  //Get the cart items
-  static List<Plant> addedToCartPlants(){
-    List<Plant> _selectedPlants = Plant.plantList;
-    return _selectedPlants.where((element) => element.isSelected == true).toList();
+  // Method to fetch data from API
+  static Future<List<Plant>> fetchPlants() async {
+    final response = await http.get(Uri.parse('https://greenscapehub.com/api/product/all'));
+
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body);
+      if (data['success'] == true && data['data'] != null) {
+        List<dynamic> plantsJson = data['data'];
+        return plantsJson.asMap().entries.map((entry) {
+          return Plant.fromJson(entry.value);
+        }).toList();
+      } else {
+        throw Exception('Failed to load plant data');
+      }
+    } else {
+      throw Exception('Failed to connect to API');
+    }
+  }
+
+  // Method to get plants by a list of plantIds
+  static Future<List<Plant>> getPlantsByIds(List<String> plantIds) async {
+    // Fetch all plants
+    List<Plant> allPlants = await fetchPlants();
+
+    // Filter plants by matching IDs
+    return allPlants.where((plant) => plantIds.contains(plant.plantId)).toList();
   }
 }
