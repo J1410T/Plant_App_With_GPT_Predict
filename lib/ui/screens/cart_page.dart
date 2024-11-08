@@ -12,6 +12,11 @@ class CartPage extends StatefulWidget {
 }
 
 class _CartPageState extends State<CartPage> {
+  // Method to calculate the total price of items in the cart
+  int calculateTotalPrice() {
+    return widget.addedToCartPlants.fold(0, (sum, plant) => sum + plant.price);
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -57,21 +62,26 @@ class _CartPageState extends State<CartPage> {
             ),
             Column(
               children: [
-                const Divider(thickness: 1.0,),
+                const Divider(thickness: 1.0),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    const Text('Totals',style: TextStyle(
-                      fontSize: 23,
-                      fontWeight: FontWeight.w300,
+                    const Text(
+                      'Totals',
+                      style: TextStyle(
+                        fontSize: 23,
+                        fontWeight: FontWeight.w300,
+                      ),
                     ),
-                    ),
-                      Text(r'$65', style: TextStyle(
+                    Text(
+                      '\$${calculateTotalPrice()}', // Use calculated total price
+                      style: TextStyle(
                         fontSize: 24.0,
                         color: Constants.primaryColor,
                         fontWeight: FontWeight.bold,
-                      ),),
+                      ),
+                    ),
                   ],
                 ),
               ],
