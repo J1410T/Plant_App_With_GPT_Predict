@@ -72,26 +72,9 @@ This will build the project and install it on your connected device or emulator.
 
 ## Screenshots
 
-![Home Page](assets/screenshots/home_screen.png)
-*Home page displaying the plant collection.*
+![All Page in System](assets/screenshots/all_pages.png)
+*Displaying the system.*
 
-![Login Page](assets/screenshots/signin_screen.png)
-*Login page requiring user authentication.*
-
-![Favorite Page](assets/screenshots/favortie_screen.png)
-*Favorite page where users can view saved plants.*
-
-![Begin Page](assets/screenshots/beginning_screen.png)
-*Begin page where users run app successfully.*
-
-![Cart Page](assets/screenshots/cart_screen.png)
-*Cart page where users can view saved plants in cart.*
-
-![Profile Page](assets/screenshots/profile_screen.png)
-*Profile page where users can view their profile and logout.*
-
-![Scan Page](assets/screenshots/scan_screen.png)
-*Scan page where users can scan the plant and predict.*
 
 
 ## Contribution 
