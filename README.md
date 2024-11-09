@@ -72,7 +72,7 @@ This will build the project and install it on your connected device or emulator.
 
 ## Screenshots
 
-![All Page in System](assets/screenshots/all_pages.png)
+![All Page in System](assets/screenshots/all_pages.jpg)
 *Displaying the system.*
 
 
